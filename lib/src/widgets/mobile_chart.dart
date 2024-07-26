@@ -487,33 +487,33 @@ class _MobileChartState extends State<MobileChart> {
                       //         .mainWindowDataContainer.unvisibleIndicators,
                       //   ),
                       // ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        width: PRICE_BAR_WIDTH,
-                        height: 20,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            primary: widget.style.hoverIndicatorBackgroundColor,
-                          ),
-                          child: Text(
-                            "Auto",
-                            style: TextStyle(
-                              color: widget.style.secondaryTextColor,
-                              fontSize: 12,
-                            ),
-                          ),
-                          onPressed: manualScaleHigh == null
-                              ? null
-                              : () {
-                                  setState(() {
-                                    manualScaleHigh = null;
-                                    manualScaleLow = null;
-                                  });
-                                },
-                        ),
-                      )
+                      // Positioned(
+                      //   right: 0,
+                      //   bottom: 0,
+                      //   width: PRICE_BAR_WIDTH,
+                      //   height: 20,
+                      //   child: ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       padding: EdgeInsets.zero,
+                      //       primary: widget.style.hoverIndicatorBackgroundColor,
+                      //     ),
+                      //     child: Text(
+                      //       "Auto",
+                      //       style: TextStyle(
+                      //         color: widget.style.secondaryTextColor,
+                      //         fontSize: 12,
+                      //       ),
+                      //     ),
+                      //     onPressed: manualScaleHigh == null
+                      //         ? null
+                      //         : () {
+                      //             setState(() {
+                      //               manualScaleHigh = null;
+                      //               manualScaleLow = null;
+                      //             });
+                      //           },
+                      //   ),
+                      // )
                     ],
                   ),
                 );
