@@ -202,8 +202,8 @@ class _MobileChartState extends State<MobileChart> {
                                         decoration: BoxDecoration(
                                           border: Border(
                                             right: BorderSide(
-                                              color: widget.style.borderColor,
-                                              width: 1,
+                                              color: widget.style.lineColor,
+                                              width: 0.5,
                                             ),
                                           ),
                                         ),
@@ -260,8 +260,8 @@ class _MobileChartState extends State<MobileChart> {
                                     decoration: BoxDecoration(
                                       border: Border(
                                         right: BorderSide(
-                                          color: widget.style.borderColor,
-                                          width: 1,
+                                          color: widget.style.lineColor,
+                                          width: 0.5,
                                         ),
                                       ),
                                     ),
@@ -423,24 +423,24 @@ class _MobileChartState extends State<MobileChart> {
                           },
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 12),
-                        child: TopPanel(
-                          style: widget.style,
-                          onRemoveIndicator: widget.onRemoveIndicator,
-                          currentCandle: currentCandle,
-                          indicators: widget.mainWindowDataContainer.indicators,
-                          toggleIndicatorVisibility: (indicatorName) {
-                            setState(() {
-                              widget.mainWindowDataContainer
-                                  .toggleIndicatorVisibility(indicatorName);
-                            });
-                          },
-                          unvisibleIndicators: widget
-                              .mainWindowDataContainer.unvisibleIndicators,
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       vertical: 4, horizontal: 12),
+                      //   child: TopPanel(
+                      //     style: widget.style,
+                      //     onRemoveIndicator: widget.onRemoveIndicator,
+                      //     currentCandle: currentCandle,
+                      //     indicators: widget.mainWindowDataContainer.indicators,
+                      //     toggleIndicatorVisibility: (indicatorName) {
+                      //       setState(() {
+                      //         widget.mainWindowDataContainer
+                      //             .toggleIndicatorVisibility(indicatorName);
+                      //       });
+                      //     },
+                      //     unvisibleIndicators: widget
+                      //         .mainWindowDataContainer.unvisibleIndicators,
+                      //   ),
+                      // ),
                       Positioned(
                         right: 0,
                         bottom: 0,

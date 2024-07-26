@@ -24,6 +24,8 @@ class CandleSticksStyle {
   final Color loadingColor;
 
   final Color toolBarColor;
+  final Color lineColor;
+
 
   CandleSticksStyle({
     required this.borderColor,
@@ -38,6 +40,7 @@ class CandleSticksStyle {
     required this.mobileCandleHoverColor,
     required this.loadingColor,
     required this.toolBarColor,
+    required this.lineColor
   });
 
   factory CandleSticksStyle.dark({
@@ -53,6 +56,7 @@ class CandleSticksStyle {
     Color? mobileCandleHoverColor,
     Color? loadingColor,
     Color? toolBarColor,
+    Color? lineColor
   }) {
     return CandleSticksStyle(
       borderColor: borderColor ?? Color(0xFF848E9C),
@@ -69,6 +73,7 @@ class CandleSticksStyle {
           mobileCandleHoverColor ?? Color(0xFFF0B90A).withOpacity(0.2),
       loadingColor: loadingColor ?? Color(0xFFF0B90A),
       toolBarColor: toolBarColor ?? Color(0xFF191B20),
+      lineColor: lineColor?? Color(0xFF191B20),
     );
   }
 
@@ -85,6 +90,8 @@ class CandleSticksStyle {
     Color? mobileCandleHoverColor,
     Color? loadingColor,
     Color? toolBarColor,
+    Color? lineColor
+
   }) {
     return CandleSticksStyle(
       borderColor: borderColor ?? Color(0xFF848E9C),
@@ -101,6 +108,8 @@ class CandleSticksStyle {
           mobileCandleHoverColor ?? Color(0xFFF0B90A).withOpacity(0.2),
       loadingColor: loadingColor ?? Color(0xFFF0B90A),
       toolBarColor: toolBarColor ?? Color(0xFFFAFAFA),
+      lineColor: lineColor?? Color(0xFF848E9C),
+
     );
   }
 }
