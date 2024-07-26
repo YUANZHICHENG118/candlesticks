@@ -129,6 +129,7 @@ class RSIRenderObject extends RenderBox {
       textDirection: TextDirection.ltr,
     )..layout();
 
+
     textPainter1.paint(context.canvas, Offset(10, 10));
     textPainter2.paint(context.canvas, Offset(10, 30));
     textPainter3.paint(context.canvas, Offset(10, 50));

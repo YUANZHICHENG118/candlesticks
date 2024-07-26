@@ -47,6 +47,7 @@ class MobileChart extends StatefulWidget {
   final ChartAdjust chartAdjust;
 
   final CandleSticksStyle style;
+  final List<SecondaryState>  secondaryState;
 
   final void Function(double) onPanDown;
   final void Function() onPanEnd;
@@ -68,6 +69,7 @@ class MobileChart extends StatefulWidget {
     required this.onReachEnd,
     required this.mainWindowDataContainer,
     required this.onRemoveIndicator,
+    required this.secondaryState
   });
 
   @override
@@ -259,7 +261,7 @@ class _MobileChartState extends State<MobileChart> {
                             flex: 1,
                             child: Row(
                               children: [
-                                Expanded(
+                                if(widget.secondaryState.contains(SecondaryState.VOL)) Expanded(
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border(
@@ -313,33 +315,33 @@ class _MobileChartState extends State<MobileChart> {
                               ],
                             ),
                           ),
-                          // Expanded(
-                          //   flex: 1,
-                          //   child: Container(
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.only(top: 10.0),
-                          //       child: KDJWidget(
-                          //         candles: widget.candles,
-                          //         barWidth: widget.candleWidth,
-                          //         index: widget.index,
-                          //         high:300, kColor: widget.style.kColor,dColor: widget.style.dColor,jColor: widget.style.jColor,),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Expanded(
-                          //   flex: 1,
-                          //   child: Container(
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.only(top: 10.0),
-                          //       child: MACDWidget(
-                          //         candles: widget.candles,
-                          //         barWidth: widget.candleWidth,
-                          //         index: widget.index,
-                          //         high:400, difColor: widget.style.difColor,deaColor: widget.style.deaColor,positiveColor: widget.style.secondaryBear,negativeColor: widget.style.primaryBear),
-                          //     ),
-                          //   ),
-                          // ),
-                          Expanded(
+                          if(widget.secondaryState.contains(SecondaryState.KDJ))Expanded(
+                            flex: 1,
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: KDJWidget(
+                                  candles: widget.candles,
+                                  barWidth: widget.candleWidth,
+                                  index: widget.index,
+                                  high:300, kColor: widget.style.kColor,dColor: widget.style.dColor,jColor: widget.style.jColor,),
+                              ),
+                            ),
+                          ),
+                          if(widget.secondaryState.contains(SecondaryState.MACD)) Expanded(
+                            flex: 1,
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: MACDWidget(
+                                  candles: widget.candles,
+                                  barWidth: widget.candleWidth,
+                                  index: widget.index,
+                                  high:400, difColor: widget.style.difColor,deaColor: widget.style.deaColor,positiveColor: widget.style.secondaryBear,negativeColor: widget.style.primaryBear),
+                              ),
+                            ),
+                          ),
+                          if(widget.secondaryState.contains(SecondaryState.RSI)) Expanded(
                             flex: 1,
                             child: Container(
                               child: Padding(

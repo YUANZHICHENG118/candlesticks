@@ -9,6 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
+import 'constant/view_constants.dart';
+
 enum ChartAdjust {
   /// Will adjust chart size by max and min value from visible area
   visibleRange,
@@ -46,7 +48,7 @@ class Candlesticks extends StatefulWidget {
   final Widget? loadingWidget;
 
   final CandleSticksStyle? style;
-
+  final List<SecondaryState>  secondaryState;
   const Candlesticks({
     Key? key,
     required this.candles,
@@ -57,6 +59,7 @@ class Candlesticks extends StatefulWidget {
     this.loadingWidget,
     this.indicators,
     this.onRemoveIndicator,
+    this.secondaryState=const [SecondaryState.VOL],
     this.style,
   })  : assert(candles.length == 0 || candles.length > 1,
             "Please provide at least 2 candles"),
@@ -241,6 +244,7 @@ class _CandlesticksState extends State<Candlesticks> {
                     onRemoveIndicator: widget.onRemoveIndicator,
                     mainWindowDataContainer: mainWindowDataContainer!,
                     chartAdjust: widget.chartAdjust,
+                    secondaryState: widget.secondaryState,
                     onScaleUpdate: (double scale) {
                       scale = max(0.90, scale);
                       scale = min(1.1, scale);
