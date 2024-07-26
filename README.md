@@ -1,4 +1,4 @@
-# candlesticks
+# candlesticks1
 
 [![pub package](https://img.shields.io/badge/pub-v2.1.0-orange.svg)](https://pub.dev/packages/candlesticks)
 
