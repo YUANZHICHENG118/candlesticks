@@ -4,8 +4,12 @@ import 'package:candlesticks/src/constant/view_constants.dart';
 import 'package:candlesticks/src/models/main_window_indicator.dart';
 import 'package:candlesticks/src/utils/helper_functions.dart';
 import 'package:candlesticks/src/widgets/candle_stick_widget.dart';
+import 'package:candlesticks/src/widgets/kdj_widget.dart';
+import 'package:candlesticks/src/widgets/macd_widget.dart';
 import 'package:candlesticks/src/widgets/mainwindow_indicator_widget.dart';
 import 'package:candlesticks/src/widgets/price_column.dart';
+import 'package:candlesticks/src/widgets/rsi_widget.dart';
+import 'package:candlesticks/src/widgets/second/base_chart_renderer.dart';
 import 'package:candlesticks/src/widgets/time_row.dart';
 import 'package:candlesticks/src/widgets/top_panel.dart';
 import 'package:candlesticks/src/widgets/volume_widget.dart';
@@ -279,6 +283,7 @@ class _MobileChartState extends State<MobileChart> {
                                     ),
                                   ),
                                 ),
+
                                 SizedBox(
                                   child: Column(
                                     crossAxisAlignment:
@@ -306,6 +311,45 @@ class _MobileChartState extends State<MobileChart> {
                                   width: PRICE_BAR_WIDTH,
                                 ),
                               ],
+                            ),
+                          ),
+                          // Expanded(
+                          //   flex: 1,
+                          //   child: Container(
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.only(top: 10.0),
+                          //       child: KDJWidget(
+                          //         candles: widget.candles,
+                          //         barWidth: widget.candleWidth,
+                          //         index: widget.index,
+                          //         high:300, kColor: widget.style.kColor,dColor: widget.style.dColor,jColor: widget.style.jColor,),
+                          //     ),
+                          //   ),
+                          // ),
+                          // Expanded(
+                          //   flex: 1,
+                          //   child: Container(
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.only(top: 10.0),
+                          //       child: MACDWidget(
+                          //         candles: widget.candles,
+                          //         barWidth: widget.candleWidth,
+                          //         index: widget.index,
+                          //         high:400, difColor: widget.style.difColor,deaColor: widget.style.deaColor,positiveColor: widget.style.secondaryBear,negativeColor: widget.style.primaryBear),
+                          //     ),
+                          //   ),
+                          // ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: RSIWidget(
+                                    candles: widget.candles,
+                                    barWidth: widget.candleWidth,
+                                    index: widget.index,
+                                    high:100, rsi1Color: widget.style.kColor,rsi2Color: widget.style.dColor,rsi3Color: widget.style.jColor,lineWidth: 1,),
+                              ),
                             ),
                           ),
                           SizedBox(

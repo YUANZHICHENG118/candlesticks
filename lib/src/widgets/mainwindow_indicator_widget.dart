@@ -97,7 +97,7 @@ class MainWindowIndicatorRenderObject extends RenderBox {
             path,
             Paint()
               ..color = element.color
-              ..strokeWidth = 1
+              ..strokeWidth = 0.5
               ..style = PaintingStyle.stroke);
     });
 

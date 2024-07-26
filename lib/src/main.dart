@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:candlesticks/candlesticks.dart';
 import 'package:candlesticks/src/models/main_window_indicator.dart';
+import 'package:candlesticks/src/utils/data_util.dart';
 import 'package:candlesticks/src/widgets/mobile_chart.dart';
 import 'package:candlesticks/src/widgets/desktop_chart.dart';
 import 'package:candlesticks/src/widgets/toolbar.dart';
@@ -91,6 +92,8 @@ class _CandlesticksState extends State<Candlesticks> {
       mainWindowDataContainer =
           MainWindowDataContainer(widget.indicators ?? [], widget.candles);
     }
+    DataUtil.calculate(widget.candles!);
+
   }
 
   @override
@@ -99,6 +102,8 @@ class _CandlesticksState extends State<Candlesticks> {
     if (widget.candles.length == 0) {
       return;
     }
+    DataUtil.calculate(widget.candles!);
+
     if (mainWindowDataContainer == null) {
       mainWindowDataContainer =
           MainWindowDataContainer(widget.indicators ?? [], widget.candles);

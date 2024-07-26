@@ -40,8 +40,16 @@ class _MyAppState extends State<MyApp> {
     '1w',
     '1M',
   ];
-  List<String> symbols = [];
-  String currentSymbol = "";
+  List<String> symbols = ["BTCUSDT"];
+  String currentSymbol = "BTCUSDT";
+  CandleSticksStyle style=CandleSticksStyle.light(
+    lineColor:Colors.blue,
+    loadingColor:Colors.blue,
+      primaryBear:  Color(0xFFF1A3A1),// 涨
+      primaryBull:  Colors.red,// 跌
+    secondaryBear: Color(0xFFF1A3A1),// 量涨
+    secondaryBull:Colors.red,// 量跌
+  );
   List<Indicator> indicators = [
     BollingerBandsIndicator(
       length: 20,
@@ -50,18 +58,24 @@ class _MyAppState extends State<MyApp> {
       basisColor: const Color(0xFFFF6D00),
       lowerColor: const Color(0xFF2962FF),
     ),
+
     WeightedMovingAverageIndicator(
-      length: 100,
-      color: Colors.green.shade600,
+      length: 30,
+      color: Colors.yellow.shade600,
+    ),
+    MovingAverageIndicator(
+      length: 60,
+      color: Colors.red.shade600,
     ),
   ];
 
   @override
   void initState() {
-    fetchSymbols().then((value) {
-      symbols = value;
-      if (symbols.isNotEmpty) fetchCandles(symbols[0], currentInterval);
-    });
+    // fetchSymbols().then((value) {
+    //   symbols = value;
+    //   if (symbols.isNotEmpty) fetchCandles(symbols[0], currentInterval);
+    // });
+    fetchCandles(symbols[0], currentInterval);
     super.initState();
   }
 
@@ -99,6 +113,8 @@ class _MyAppState extends State<MyApp> {
       final data =
           await repository.fetchCandles(symbol: symbol, interval: interval);
       // connect to binance stream
+
+      print("data===${data}");
       _channel =
           repository.establishConnection(symbol.toLowerCase(), currentInterval);
       // update candles
@@ -154,6 +170,14 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void onRemoveIndicator (String indicator) {
+  setState(() {
+  indicators = [...indicators];
+  indicators
+      .removeWhere((element) => element.name == indicator);
+  });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -165,9 +189,10 @@ class _MyAppState extends State<MyApp> {
           actions: [
             IconButton(
               onPressed: () {
-                setState(() {
-                  themeIsDark = !themeIsDark;
-                });
+                onRemoveIndicator("BB 20");
+                // setState(() {
+                //   themeIsDark = !themeIsDark;
+                // });
               },
               icon: Icon(
                 themeIsDark
@@ -185,7 +210,9 @@ class _MyAppState extends State<MyApp> {
               return Candlesticks(
                 key: Key(currentSymbol + currentInterval),
                 indicators: indicators,
+                style: style,
                 candles: candles,
+                displayZoomActions: false,
                 onLoadMoreCandles: loadMoreCandles,
                 onRemoveIndicator: (String indicator) {
                   setState(() {
@@ -195,69 +222,69 @@ class _MyAppState extends State<MyApp> {
                   });
                 },
                 actions: [
-                  ToolBarAction(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Center(
-                            child: Container(
-                              width: 200,
-                              color: Theme.of(context).backgroundColor,
-                              child: Wrap(
-                                children: intervals
-                                    .map((e) => Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 30,
-                                            child: RawMaterialButton(
-                                              elevation: 0,
-                                              fillColor:
-                                                  const Color(0xFF494537),
-                                              onPressed: () {
-                                                fetchCandles(currentSymbol, e);
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text(
-                                                e,
-                                                style: const TextStyle(
-                                                  color: Color(0xFFF0B90A),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ))
-                                    .toList(),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: Text(
-                      currentInterval,
-                    ),
-                  ),
-                  ToolBarAction(
-                    width: 100,
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return SymbolsSearchModal(
-                            symbols: symbols,
-                            onSelect: (value) {
-                              fetchCandles(value, currentInterval);
-                            },
-                          );
-                        },
-                      );
-                    },
-                    child: Text(
-                      currentSymbol,
-                    ),
-                  )
+                  // ToolBarAction(
+                  //   onPressed: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (context) {
+                  //         return Center(
+                  //           child: Container(
+                  //             width: 200,
+                  //             color: Theme.of(context).backgroundColor,
+                  //             child: Wrap(
+                  //               children: intervals
+                  //                   .map((e) => Padding(
+                  //                         padding: const EdgeInsets.all(8.0),
+                  //                         child: SizedBox(
+                  //                           width: 50,
+                  //                           height: 30,
+                  //                           child: RawMaterialButton(
+                  //                             elevation: 0,
+                  //                             fillColor:
+                  //                                 const Color(0xFF494537),
+                  //                             onPressed: () {
+                  //                               fetchCandles(currentSymbol, e);
+                  //                               Navigator.of(context).pop();
+                  //                             },
+                  //                             child: Text(
+                  //                               e,
+                  //                               style: const TextStyle(
+                  //                                 color: Color(0xFFF0B90A),
+                  //                               ),
+                  //                             ),
+                  //                           ),
+                  //                         ),
+                  //                       ))
+                  //                   .toList(),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  //   child: Text(
+                  //     currentInterval,
+                  //   ),
+                  // ),
+                  // ToolBarAction(
+                  //   width: 100,
+                  //   onPressed: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (context) {
+                  //         return SymbolsSearchModal(
+                  //           symbols: symbols,
+                  //           onSelect: (value) {
+                  //             fetchCandles(value, currentInterval);
+                  //           },
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  //   child: Text(
+                  //     currentSymbol,
+                  //   ),
+                  // )
                 ],
               );
             },

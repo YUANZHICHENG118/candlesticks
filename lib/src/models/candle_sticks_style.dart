@@ -27,6 +27,16 @@ class CandleSticksStyle {
   final Color lineColor;
 
 
+  final Color macdColor ;
+  final  Color difColor;
+  final Color deaColor;
+
+  final  Color kColor;
+  final Color dColor;
+  final Color jColor ;
+  final Color rsiColor ;
+
+
   CandleSticksStyle({
     required this.borderColor,
     required this.background,
@@ -40,7 +50,14 @@ class CandleSticksStyle {
     required this.mobileCandleHoverColor,
     required this.loadingColor,
     required this.toolBarColor,
-    required this.lineColor
+    required this.lineColor,
+    required this.dColor,
+    required this.deaColor,
+    required this.difColor,
+    required this.jColor,
+    required this.kColor,
+    required this.macdColor,
+    required this.rsiColor
   });
 
   factory CandleSticksStyle.dark({
@@ -56,7 +73,15 @@ class CandleSticksStyle {
     Color? mobileCandleHoverColor,
     Color? loadingColor,
     Color? toolBarColor,
-    Color? lineColor
+    Color? lineColor,
+   Color? macdColor ,
+    Color? difColor ,
+   Color? deaColor ,
+
+    Color? kColor ,
+   Color? dColor ,
+   Color? jColor ,
+   Color? rsiColor ,
   }) {
     return CandleSticksStyle(
       borderColor: borderColor ?? Color(0xFF848E9C),
@@ -74,6 +99,14 @@ class CandleSticksStyle {
       loadingColor: loadingColor ?? Color(0xFFF0B90A),
       toolBarColor: toolBarColor ?? Color(0xFF191B20),
       lineColor: lineColor?? Color(0xFF191B20),
+      macdColor:macdColor?? Color(0xffC9B885),
+     difColor :difColor?? Color(0xffC9B885),
+     deaColor :deaColor?? Color(0xff6CB0A6),
+
+     kColor :kColor?? Color(0xffC9B885),
+     dColor :dColor?? Color(0xff6CB0A6),
+     jColor :jColor?? Color(0xff9979C6),
+     rsiColor :rsiColor?? Color(0xffC9B885),
     );
   }
 
@@ -90,8 +123,15 @@ class CandleSticksStyle {
     Color? mobileCandleHoverColor,
     Color? loadingColor,
     Color? toolBarColor,
-    Color? lineColor
+    Color? lineColor,
+    Color? macdColor ,
+    Color? difColor ,
+    Color? deaColor ,
 
+    Color? kColor ,
+    Color? dColor ,
+    Color? jColor ,
+    Color? rsiColor ,
   }) {
     return CandleSticksStyle(
       borderColor: borderColor ?? Color(0xFF848E9C),
@@ -109,7 +149,14 @@ class CandleSticksStyle {
       loadingColor: loadingColor ?? Color(0xFFF0B90A),
       toolBarColor: toolBarColor ?? Color(0xFFFAFAFA),
       lineColor: lineColor?? Color(0xFF848E9C),
+      macdColor:macdColor?? Color(0xffC9B885),
+      difColor :difColor?? Color(0xffC9B885),
+      deaColor :deaColor?? Color(0xff6CB0A6),
 
+      kColor :kColor?? Color(0xffC9B885),
+      dColor :dColor?? Color(0xff6CB0A6),
+      jColor :jColor?? Color(0xff9979C6),
+      rsiColor :rsiColor?? Color(0xffC9B885),
     );
   }
 }
