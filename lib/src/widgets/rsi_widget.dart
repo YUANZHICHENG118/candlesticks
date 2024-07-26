@@ -108,7 +108,7 @@ class RSIRenderObject extends RenderBox {
     final TextPainter textPainter1 = TextPainter(
       text: TextSpan(
         text: 'RSI1: ${_candles.last.rsi1?.toStringAsFixed(2) ?? 'N/A'}',
-        style: TextStyle(color: _rsi1Color, fontSize: 14),
+        style: TextStyle(color: _rsi1Color, fontSize: 10),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -116,7 +116,7 @@ class RSIRenderObject extends RenderBox {
     final TextPainter textPainter2 = TextPainter(
       text: TextSpan(
         text: 'RSI2: ${_candles.last.rsi2?.toStringAsFixed(2) ?? 'N/A'}',
-        style: TextStyle(color: _rsi2Color, fontSize: 14),
+        style: TextStyle(color: _rsi2Color, fontSize: 10),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -124,16 +124,19 @@ class RSIRenderObject extends RenderBox {
     final TextPainter textPainter3 = TextPainter(
       text: TextSpan(
         text: 'RSI3: ${_candles.last.rsi3?.toStringAsFixed(2) ?? 'N/A'}',
-        style: TextStyle(color: _rsi3Color, fontSize: 14),
+        style: TextStyle(color: _rsi3Color, fontSize: 10),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
 
+    double textX = offset.dx + 10; // Adjust X position
+    double textY = offset.dy + 10; // Adjust Y position
 
-    textPainter1.paint(context.canvas, Offset(10, 10));
-    textPainter2.paint(context.canvas, Offset(10, 30));
-    textPainter3.paint(context.canvas, Offset(10, 50));
+    textPainter1.paint(context.canvas, Offset(textX, textY));
+    textPainter2.paint(context.canvas, Offset(textX+70, textY));
+    textPainter3.paint(context.canvas, Offset(textX+140, textY));
   }
+
 
   @override
   void paint(PaintingContext context, Offset offset) {

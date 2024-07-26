@@ -210,6 +210,7 @@ class _MyAppState extends State<MyApp> {
               return Candlesticks(
                 key: Key(currentSymbol + currentInterval),
                 indicators: indicators,
+                secondaryState: [SecondaryState.RSI,SecondaryState.VOL],
                 style: style,
                 candles: candles,
                 displayZoomActions: false,
