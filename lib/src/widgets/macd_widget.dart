@@ -121,9 +121,47 @@ class MACDRenderObject extends RenderBox {
     );
   }
 
+  /// 绘制左上角的 KDJ 数值
+  void paintText(PaintingContext context, Offset offset,Candle candle) {
+    final Candle lastCandle = candle;
+
+    final TextPainter textPainterDIF = TextPainter(
+      text: TextSpan(
+        text: 'DIF: ${lastCandle.dif?.toStringAsFixed(2) ?? 'N/A'}',
+        style: TextStyle(color: _difColor, fontSize: 10),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    final TextPainter textPainterDEA = TextPainter(
+      text: TextSpan(
+        text: 'DEA: ${lastCandle.dea?.toStringAsFixed(2) ?? 'N/A'}',
+        style: TextStyle(color: _deaColor, fontSize: 10),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    final TextPainter textPainterMACD = TextPainter(
+      text: TextSpan(
+        text: 'MACD: ${lastCandle.macd?.toStringAsFixed(2) ?? 'N/A'}',
+        style: TextStyle(color: _positiveColor, fontSize: 10),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    double textX = offset.dx + 10; // Adjust X position
+    double textY = offset.dy + 10; // Adjust Y position
+
+    textPainterDIF.paint(context.canvas, Offset(textX, textY));
+    textPainterDEA.paint(context.canvas, Offset(textX+70, textY));
+    textPainterMACD.paint(context.canvas, Offset(textX+140, textY));
+  }
+
   @override
   void paint(PaintingContext context, Offset offset) {
     double range = _high / size.height;
+    Candle? lastVisibleCandle;
+
     for (int i = 0; (i + 1) * _barWidth < size.width; i++) {
       if (i + _index >= _candles.length || i + _index < 1) continue;
       var lastCandle = _candles[i + _index - 1];
@@ -132,6 +170,11 @@ class MACDRenderObject extends RenderBox {
       paintLine(context, offset, i, lastCandle.dif??0, curCandle.dif??0, _difColor, range);
       paintLine(context, offset, i, lastCandle.dea??0, curCandle.dea??0, _deaColor, range);
       paintBar(context, offset, i, curCandle.macd??0, range);
+      lastVisibleCandle = curCandle;
+    }
+
+    if (lastVisibleCandle != null) {
+      paintText(context, offset, lastVisibleCandle); // 调用绘制文本方法
     }
     context.canvas.save();
     context.canvas.restore();

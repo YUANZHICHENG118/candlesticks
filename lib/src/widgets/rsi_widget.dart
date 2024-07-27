@@ -104,10 +104,10 @@ class RSIRenderObject extends RenderBox {
     );
   }
 
-  void paintText(PaintingContext context, Offset offset) {
+  void paintText(PaintingContext context, Offset offset, Candle candle) {
     final TextPainter textPainter1 = TextPainter(
       text: TextSpan(
-        text: 'RSI1: ${_candles.last.rsi1?.toStringAsFixed(2) ?? 'N/A'}',
+        text: 'RSI1: ${candle.rsi1?.toStringAsFixed(2) ?? 'N/A'}',
         style: TextStyle(color: _rsi1Color, fontSize: 10),
       ),
       textDirection: TextDirection.ltr,
@@ -115,7 +115,7 @@ class RSIRenderObject extends RenderBox {
 
     final TextPainter textPainter2 = TextPainter(
       text: TextSpan(
-        text: 'RSI2: ${_candles.last.rsi2?.toStringAsFixed(2) ?? 'N/A'}',
+        text: 'RSI2: ${candle.rsi2?.toStringAsFixed(2) ?? 'N/A'}',
         style: TextStyle(color: _rsi2Color, fontSize: 10),
       ),
       textDirection: TextDirection.ltr,
@@ -123,7 +123,7 @@ class RSIRenderObject extends RenderBox {
 
     final TextPainter textPainter3 = TextPainter(
       text: TextSpan(
-        text: 'RSI3: ${_candles.last.rsi3?.toStringAsFixed(2) ?? 'N/A'}',
+        text: 'RSI3: ${candle.rsi3?.toStringAsFixed(2) ?? 'N/A'}',
         style: TextStyle(color: _rsi3Color, fontSize: 10),
       ),
       textDirection: TextDirection.ltr,
@@ -141,6 +141,8 @@ class RSIRenderObject extends RenderBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     double range = _high / size.height;
+    Candle? lastVisibleCandle;
+
     for (int i = 0; (i + 1) * (_barWidth + 1) < size.width; i++) {
       if (i + _index >= _candles.length || i + _index < 1) continue;
       var lastCandle = _candles[i + _index - 1];
@@ -149,9 +151,14 @@ class RSIRenderObject extends RenderBox {
       paintLine(context, offset, i, lastCandle.rsi1, curCandle.rsi1, _rsi1Color, range);
       paintLine(context, offset, i, lastCandle.rsi2, curCandle.rsi2, _rsi2Color, range);
       paintLine(context, offset, i, lastCandle.rsi3, curCandle.rsi3, _rsi3Color, range);
+
+      lastVisibleCandle = curCandle;
     }
 
-    paintText(context, offset);
+    if (lastVisibleCandle != null) {
+      paintText(context, offset, lastVisibleCandle); // 调用绘制文本方法
+    }
+
 
     context.canvas.save();
     context.canvas.restore();

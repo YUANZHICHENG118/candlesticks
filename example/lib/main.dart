@@ -114,7 +114,6 @@ class _MyAppState extends State<MyApp> {
           await repository.fetchCandles(symbol: symbol, interval: interval);
       // connect to binance stream
 
-      print("data===${data}");
       _channel =
           repository.establishConnection(symbol.toLowerCase(), currentInterval);
       // update candles
@@ -210,7 +209,7 @@ class _MyAppState extends State<MyApp> {
               return Candlesticks(
                 key: Key(currentSymbol + currentInterval),
                 indicators: indicators,
-                secondaryState: [SecondaryState.RSI,SecondaryState.VOL],
+                secondaryState: [SecondaryState.RSI,SecondaryState.VOL,SecondaryState.MACD,SecondaryState.KDJ,SecondaryState.RSI],
                 style: style,
                 candles: candles,
                 displayZoomActions: false,
