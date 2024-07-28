@@ -38,7 +38,7 @@ class BinanceRepository {
     //     .toList();
      print("list===${list.length}");
 
-    return list;
+    return list.reversed.toList();
   }
 
   Future<List<String>> fetchSymbols() async {

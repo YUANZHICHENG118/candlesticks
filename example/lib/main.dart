@@ -45,28 +45,28 @@ class _MyAppState extends State<MyApp> {
   CandleSticksStyle style=CandleSticksStyle.light(
     lineColor:Colors.blue,
     loadingColor:Colors.blue,
-      primaryBear:  Color(0xFFF1A3A1),// 涨
-      primaryBull:  Colors.red,// 跌
-    secondaryBear: Color(0xFFF1A3A1),// 量涨
-    secondaryBull:Colors.red,// 量跌
+    primaryBear:  Color(0xFFFA2256),// 跌
+    primaryBull:  Color(0xFF00D889),// 涨
+    secondaryBear: Color(0xFFFA2256),// 量跌
+    secondaryBull:Color(0xFF00D889),// 量涨
   );
   List<Indicator> indicators = [
-    BollingerBandsIndicator(
-      length: 20,
-      stdDev: 2,
-      upperColor: const Color(0xFF2962FF),
-      basisColor: const Color(0xFFFF6D00),
-      lowerColor: const Color(0xFF2962FF),
-    ),
-
-    WeightedMovingAverageIndicator(
-      length: 30,
-      color: Colors.yellow.shade600,
-    ),
-    MovingAverageIndicator(
-      length: 60,
-      color: Colors.red.shade600,
-    ),
+    // BollingerBandsIndicator(
+    //   length: 20,
+    //   stdDev: 2,
+    //   upperColor: const Color(0xFF2962FF),
+    //   basisColor: const Color(0xFFFF6D00),
+    //   lowerColor: const Color(0xFF2962FF),
+    // ),
+    //
+    // WeightedMovingAverageIndicator(
+    //   length: 30,
+    //   color: Colors.yellow.shade600,
+    // ),
+    // MovingAverageIndicator(
+    //   length: 60,
+    //   color: Colors.red.shade600,
+    // ),
   ];
 
   @override
@@ -209,6 +209,7 @@ class _MyAppState extends State<MyApp> {
               return Candlesticks(
                 key: Key(currentSymbol + currentInterval),
                 indicators: indicators,
+                isLine:true,
                 secondaryState: [SecondaryState.RSI,SecondaryState.VOL,SecondaryState.MACD,SecondaryState.KDJ,SecondaryState.RSI],
                 style: style,
                 candles: candles,

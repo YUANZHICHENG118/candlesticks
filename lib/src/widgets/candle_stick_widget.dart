@@ -11,6 +11,8 @@ class CandleStickWidget extends LeafRenderObjectWidget {
   final Color bullColor;
   final Color bearColor;
 
+  final bool isLine;
+
   CandleStickWidget({
     required this.candles,
     required this.index,
@@ -19,6 +21,7 @@ class CandleStickWidget extends LeafRenderObjectWidget {
     required this.high,
     required this.bearColor,
     required this.bullColor,
+    required this.isLine
   });
 
   @override
@@ -31,6 +34,7 @@ class CandleStickWidget extends LeafRenderObjectWidget {
       high,
       bullColor,
       bearColor,
+      isLine
     );
   }
 
@@ -75,7 +79,7 @@ class CandleStickRenderObject extends RenderBox {
   late double _close;
   late Color _bullColor;
   late Color _bearColor;
-
+  late bool _isLine;
   CandleStickRenderObject(
     List<Candle> candles,
     int index,
@@ -84,6 +88,7 @@ class CandleStickRenderObject extends RenderBox {
     double high,
     Color bullColor,
     Color bearColor,
+      bool isLine,
   ) {
     _candles = candles;
     _index = index;
@@ -92,6 +97,7 @@ class CandleStickRenderObject extends RenderBox {
     _high = high;
     _bearColor = bearColor;
     _bullColor = bullColor;
+    _isLine =isLine;
   }
 
   /// set size as large as possible
@@ -131,23 +137,72 @@ class CandleStickRenderObject extends RenderBox {
       // if the candle body is too small
       final double mid = (closeCandleY + openCandleY) / 2;
       context.canvas.drawLine(
-        Offset(x, mid - 0.5),
+        Offset(x , mid - 0.5),
         Offset(x, mid + 0.5),
         paint..strokeWidth = _candleWidth * 0.8,
       );
     }
   }
 
+  void paintLine(PaintingContext context, Offset offset) {
+    if (_candles.isEmpty) return;
+
+    final paint = Paint()
+      ..color = Colors.lightBlueAccent
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
+    final double chartWidth = size.width;
+    final double chartHeight = size.height;
+    final double priceMin = _candles.map((c) => c.close).reduce((a, b) =>
+    a < b
+        ? a
+        : b);
+    final double priceMax = _candles.map((c) => c.close).reduce((a, b) =>
+    a > b
+        ? a
+        : b);
+    final double priceRange = priceMax - priceMin;
+
+    final double spacing = chartWidth / (_candles.length - 1);
+
+    List<Offset> points = _candles.mapIndexed((index, candle) {
+      double x = index * spacing;
+      double y = chartHeight -
+          ((candle.close - priceMin) / priceRange) * chartHeight;
+      return Offset(x, y);
+    }).toList();
+
+    final path = Path();
+    path.moveTo(points.first.dx, points.first.dy);
+
+    for (int i = 1; i < points.length; i++) {
+      path.lineTo(points[i].dx, points[i].dy);
+    }
+
+    context.canvas.drawPath(path, paint);
+  }
   @override
   void paint(PaintingContext context, Offset offset) {
-    double range = (_high - _low) / size.height;
-    for (int i = 0; (i + 1) * _candleWidth < size.width; i++) {
-      if (i + _index >= _candles.length || i + _index < 0) continue;
-      var candle = _candles[i + _index];
-      paintCandle(context, offset, i, candle, range);
+    if(_isLine){
+      paintLine(context, offset);
+    }else {
+      double range = (_high - _low) / size.height;
+      for (int i = 0; (i + 1) * _candleWidth < size.width; i++) {
+        if (i + _index >= _candles.length || i + _index < 0) continue;
+        var candle = _candles[i + _index];
+        paintCandle(context, offset, i, candle, range);
+      }
     }
-    _close = _candles[0].close;
+     _close = _candles[0].close;
     context.canvas.save();
     context.canvas.restore();
+  }
+}
+extension on List<Candle> {
+  Iterable<T> mapIndexed<T>(T Function(int index, Candle candle) f) sync* {
+    for (int i = 0; i < this.length; i++) {
+      yield f(i, this[i]);
+    }
   }
 }

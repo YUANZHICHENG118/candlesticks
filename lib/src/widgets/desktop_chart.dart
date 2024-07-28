@@ -240,6 +240,7 @@ class _DesktopChartState extends State<DesktopChart> {
                                                 ),
                                                 CandleStickWidget(
                                                   candles: widget.candles,
+                                                  isLine:false,
                                                   candleWidth:
                                                       widget.candleWidth,
                                                   index: widget.index,

@@ -40,6 +40,8 @@ class MobileChart extends StatefulWidget {
   /// changes when user scrolls along the chart
   final int index;
 
+  final bool isLine;
+
   /// holds main window indicators data and high and low prices.
   final MainWindowDataContainer mainWindowDataContainer;
 
@@ -69,7 +71,8 @@ class MobileChart extends StatefulWidget {
     required this.onReachEnd,
     required this.mainWindowDataContainer,
     required this.onRemoveIndicator,
-    required this.secondaryState
+    required this.secondaryState,
+    required this.isLine
   });
 
   @override
@@ -231,13 +234,14 @@ class _MobileChartState extends State<MobileChart> {
                                                   low: low,
                                                   high: high,
                                                 ),
-                                                CandleStickWidget(
+                                               CandleStickWidget(
                                                   candles: widget.candles,
                                                   candleWidth:
                                                       widget.candleWidth,
                                                   index: widget.index,
                                                   high: high,
                                                   low: low,
+                                                  isLine: widget.isLine,
                                                   bearColor:
                                                       widget.style.primaryBear,
                                                   bullColor:

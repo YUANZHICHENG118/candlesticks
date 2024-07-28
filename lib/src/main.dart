@@ -47,6 +47,8 @@ class Candlesticks extends StatefulWidget {
   /// Custom loading widget
   final Widget? loadingWidget;
 
+  final bool? isLine;
+
   final CandleSticksStyle? style;
   final List<SecondaryState>  secondaryState;
   const Candlesticks({
@@ -60,6 +62,7 @@ class Candlesticks extends StatefulWidget {
     this.indicators,
     this.onRemoveIndicator,
     this.secondaryState=const [SecondaryState.VOL],
+    this.isLine=false,
     this.style,
   })  : assert(candles.length == 0 || candles.length > 1,
             "Please provide at least 2 candles"),
@@ -245,6 +248,7 @@ class _CandlesticksState extends State<Candlesticks> {
                     mainWindowDataContainer: mainWindowDataContainer!,
                     chartAdjust: widget.chartAdjust,
                     secondaryState: widget.secondaryState,
+                    isLine: widget.isLine??false,
                     onScaleUpdate: (double scale) {
                       scale = max(0.90, scale);
                       scale = min(1.1, scale);
