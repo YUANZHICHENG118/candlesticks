@@ -51,7 +51,7 @@ class _PriceColumnState extends State<PriceColumn> {
         priceTileHeight / 2;
     return GestureDetector(
       onVerticalDragUpdate: (details) {
-        widget.onScale(details.delta.dy);
+       // widget.onScale(details.delta.dy);
       },
       child: AbsorbPointer(
         child: Stack(

@@ -206,10 +206,10 @@ class _MyAppState extends State<MyApp> {
             stream: _channel == null ? null : _channel!.stream,
             builder: (context, snapshot) {
               updateCandlesFromSnapshot(snapshot);
-              return Candlesticks(
+              return SizedBox(height: 580,child: Candlesticks(
                 key: Key(currentSymbol + currentInterval),
                 indicators: indicators,
-                isLine:true,
+                isLine:false,
                 secondaryState: [SecondaryState.RSI,SecondaryState.VOL,SecondaryState.MACD,SecondaryState.KDJ,SecondaryState.RSI],
                 style: style,
                 candles: candles,
@@ -287,7 +287,7 @@ class _MyAppState extends State<MyApp> {
                   //   ),
                   // )
                 ],
-              );
+              ),);
             },
           ),
         ),

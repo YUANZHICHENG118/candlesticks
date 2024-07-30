@@ -146,12 +146,10 @@ class CandleStickRenderObject extends RenderBox {
 
   void paintLine(PaintingContext context, Offset offset) {
     if (_candles.isEmpty) return;
-
     final paint = Paint()
       ..color = Colors.lightBlueAccent
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
-
     final double chartWidth = size.width;
     final double chartHeight = size.height;
     final double priceMin = _candles.map((c) => c.close).reduce((a, b) =>
@@ -163,9 +161,7 @@ class CandleStickRenderObject extends RenderBox {
         ? a
         : b);
     final double priceRange = priceMax - priceMin;
-
     final double spacing = chartWidth / (_candles.length - 1);
-
     List<Offset> points = _candles.mapIndexed((index, candle) {
       double x = index * spacing;
       double y = chartHeight -
@@ -175,11 +171,9 @@ class CandleStickRenderObject extends RenderBox {
 
     final path = Path();
     path.moveTo(points.first.dx, points.first.dy);
-
     for (int i = 1; i < points.length; i++) {
       path.lineTo(points[i].dx, points[i].dy);
     }
-
     context.canvas.drawPath(path, paint);
   }
   @override

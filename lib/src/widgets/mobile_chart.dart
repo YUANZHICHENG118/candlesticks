@@ -15,6 +15,7 @@ import 'package:candlesticks/src/widgets/top_panel.dart';
 import 'package:candlesticks/src/widgets/volume_widget.dart';
 import 'package:flutter/material.dart';
 import 'dash_line.dart';
+import 'line_widget.dart';
 
 /// This widget manages gestures
 /// Calculates the highest and lowest price of visible candles.

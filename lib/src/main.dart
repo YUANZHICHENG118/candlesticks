@@ -81,7 +81,7 @@ class _CandlesticksState extends State<Candlesticks> {
 
   /// candleWidth controls the width of the single candles.
   ///  range: [2...10]
-  double candleWidth =5;
+  double candleWidth =6;
 
   /// true when widget.onLoadMoreCandles is fetching new candles.
   bool isCallingLoadMore = false;
@@ -250,12 +250,19 @@ class _CandlesticksState extends State<Candlesticks> {
                     secondaryState: widget.secondaryState,
                     isLine: widget.isLine??false,
                     onScaleUpdate: (double scale) {
+                      // 调整 scale 的变化速率，例如缩小到原来的 1/2
+                      const double sensitivity = 0.05;
+                      scale = 1 + (scale - 1) * sensitivity;
+
+                      // 确保 scale 在指定范围内
                       scale = max(0.90, scale);
                       scale = min(1.1, scale);
+
                       setState(() {
+                        // 计算新的 candleWidth
                         candleWidth *= scale;
                         candleWidth = min(candleWidth, 10);
-                        candleWidth = max(candleWidth, 6);
+                        candleWidth = max(candleWidth, 2);
                       });
                     },
                     onPanEnd: () {
